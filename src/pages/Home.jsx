@@ -424,28 +424,8 @@ function Home() {
 
       {/* Free Quote Section */}
       <section className="py-16 relative overflow-hidden">
-        {/* Add gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
-        
-        {/* Add animated shapes in the background */}
-        <div className="absolute inset-0 opacity-20">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full"
-              style={{
-                width: `${Math.random() * 300 + 100}px`,
-                height: `${Math.random() * 300 + 100}px`,
-                background: `linear-gradient(45deg, #fbbf24 0%, #d97706 100%)`,
-                left: `${Math.random() * 90}%`,
-                top: `${Math.random() * 90}%`,
-                transform: `scale(${Math.random() * 0.5 + 0.5})`,
-                animation: `float ${Math.random() * 30 + 60}s linear infinite`,
-                opacity: 0.4
-              }}
-            ></div>
-          ))}
-        </div>
+        {/* Simple gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/90 to-black/80"></div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto bg-black/50 p-8 rounded-2xl backdrop-blur-sm border border-white/10">
