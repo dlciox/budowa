@@ -432,7 +432,7 @@ function Home() {
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full"
+              className="absolute rounded-full transition-opacity duration-1000"
               style={{
                 width: `${Math.random() * 300 + 100}px`,
                 height: `${Math.random() * 300 + 100}px`,
@@ -440,8 +440,9 @@ function Home() {
                 left: `${Math.random() * 90}%`,
                 top: `${Math.random() * 90}%`,
                 transform: `scale(${Math.random() * 0.5 + 0.5})`,
-                animation: `float ${Math.random() * 15 + 25}s infinite ease-in-out`,
-                opacity: 0.3
+                animation: `float ${Math.random() * 20 + 40}s infinite ease-in-out`,
+                opacity: 0.3,
+                transition: 'opacity 2s ease-in-out'
               }}
             ></div>
           ))}
