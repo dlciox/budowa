@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import buildingImage from '../assets/montaz6/building-1080594_1280.jpg';
+import { images } from '../components/Import';
 
 function Home() {
   // Stan do śledzenia pozycji przewijania dla efektu paralaksy
@@ -138,21 +139,21 @@ function Home() {
           title: "Montaż 1",
           description: "Kompleksowy montaż wraz z wykończeniem.",
           category: "Kuchnie",
-          imageUrl: "./src/assets/montaz1/montaz1_1.jpg",
+          imageUrl: images['montaz1_1'],
         },
         {
           id: 2,
           title: "Montaż 2",
           description: "Kompleksowy montaż wraz z wykończeniem.",
           category: "Kuchnie",
-          imageUrl: "./src/assets/montaz2/montaz2_1.jpg",
+          imageUrl: images['montaz2_1'],
         },
         {
           id: 3,
           title: "Montaż 3",
           description: "Kompleksowy montaż wraz z wykończeniem.",
           category: "Przedpokoje",
-          imageUrl: "./src/assets/montaz3/montaz3_1.jpg",
+          imageUrl: images['montaz3_1'],
         },
       ];
       
@@ -436,7 +437,7 @@ function Home() {
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 transform: `scale(${Math.random() * 0.5 + 0.5})`,
-                animation: `float ${Math.random() * 20 + 30}s infinite linear` 
+                animation: `float ${Math.random() * 30 + 60}s infinite linear` 
               }}
             ></div>
           ))}

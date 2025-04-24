@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { images } from '../components/Import';
 
 function Projects() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -112,13 +113,13 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: "./src/assets/montaz1/montaz1_1.jpg",
+      imageUrl: images['montaz1_1'],
       images: [
-        "./src/assets/montaz1/montaz1_1.jpg",
-        "./src/assets/montaz1/montaz1_2.jpg",
-        "./src/assets/montaz1/montaz1_3.jpg",
-        "./src/assets/montaz1/montaz1_4.jpg",
-        "./src/assets/montaz1/montaz1_5.jpg"
+        images['montaz1_1'],
+        images['montaz1_2'],
+        images['montaz1_3'],
+        images['montaz1_4'],
+        images['montaz1_5']
       ],
       stats: {
         duration: "2 tygodnie",
@@ -145,12 +146,12 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: "./src/assets/montaz2/montaz2_1.jpg",
+      imageUrl: images['montaz2_1'],
       images: [
-        "./src/assets/montaz2/montaz2_1.jpg",
-        "./src/assets/montaz2/montaz2_2.jpg",
-        "./src/assets/montaz2/montaz2_3.jpg",
-        "./src/assets/montaz2/montaz2_4.jpg"
+        images['montaz2_1'],
+        images['montaz2_2'],
+        images['montaz2_3'],
+        images['montaz2_4']
       ],
       stats: {
         duration: "2 tygodnie",
@@ -177,10 +178,10 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: "./src/assets/montaz3/montaz3_1.jpg",
+      imageUrl: images['montaz3_1'],
       images: [
-        "./src/assets/montaz3/montaz3_1.jpg",
-        "./src/assets/montaz3/montaz3_2.jpg"
+        images['montaz3_1'],
+        images['montaz3_2']
       ],
       stats: {
         duration: "2 tygodnie",
@@ -207,9 +208,9 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: "./src/assets/montaz4/montaz4_1.jpg",
+      imageUrl: images['montaz4_1'],
       images: [
-        "./src/assets/montaz4/montaz4_1.jpg"
+        images['montaz4_1']
       ],
       stats: {
         duration: "2 tygodnie",
@@ -236,11 +237,11 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: "./src/assets/montaz5/montaz5_1.jpg",
+      imageUrl: images['montaz5_1'],
       images: [
-        "./src/assets/montaz5/montaz5_1.jpg",
-        "./src/assets/montaz5/montaz5_2.jpg",
-        "./src/assets/montaz5/montaz5_3.jpg"
+        images['montaz5_1'],
+        images['montaz5_2'],
+        images['montaz5_3']
       ],
       stats: {
         duration: "2 tygodnie",
@@ -267,10 +268,10 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: "./src/assets/montaz6/montaz6_1.jpg",
+      imageUrl: images['montaz6_1'],
       images: [
-        "./src/assets/montaz6/montaz6_1.jpg",
-        "./src/assets/montaz6/montaz6_2.jpg",
+        images['montaz6_1'],
+        images['montaz6_2']
       ],
       stats: {
         duration: "2 tygodnie",
