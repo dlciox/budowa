@@ -436,7 +436,7 @@ function Home() {
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 transform: `scale(${Math.random() * 0.5 + 0.5})`,
-                animation: `float ${Math.random() * 10 + 10}s infinite linear`
+                animation: `float ${Math.random() * 20 + 30}s infinite linear` 
               }}
             ></div>
           ))}
