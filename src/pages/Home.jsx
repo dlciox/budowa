@@ -428,11 +428,11 @@ function Home() {
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
         
         {/* Add animated shapes in the background */}
-        <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 opacity-20">
           {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full transition-opacity duration-1000"
+              className="absolute rounded-full"
               style={{
                 width: `${Math.random() * 300 + 100}px`,
                 height: `${Math.random() * 300 + 100}px`,
@@ -440,9 +440,8 @@ function Home() {
                 left: `${Math.random() * 90}%`,
                 top: `${Math.random() * 90}%`,
                 transform: `scale(${Math.random() * 0.5 + 0.5})`,
-                animation: `float ${Math.random() * 20 + 40}s infinite ease-in-out`,
-                opacity: 0.3,
-                transition: 'opacity 2s ease-in-out'
+                animation: `float ${Math.random() * 30 + 60}s linear infinite`,
+                opacity: 0.4
               }}
             ></div>
           ))}
