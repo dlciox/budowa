@@ -1,7 +1,7 @@
 const importAll = (r) => {
   const images = {};
   Object.entries(r).forEach(([path, module]) => {
-    const key = path.replace('./src/assets/', '').replace(/\.(png|jpe?g|svg)$/, '');
+    const key = path.split('/').pop().replace(/\.(png|jpe?g|svg)$/, '');
     images[key] = module.default;
   });
   return images;

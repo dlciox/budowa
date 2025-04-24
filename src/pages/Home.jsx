@@ -429,7 +429,7 @@ function Home() {
         
         {/* Add animated particles/shapes in the background */}
         <div className="absolute inset-0 opacity-10">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(10)].map((_, i) => (
             <div
               key={i}
               className="absolute w-20 h-20 bg-yellow-400 rounded-full"
@@ -437,7 +437,7 @@ function Home() {
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 transform: `scale(${Math.random() * 0.5 + 0.5})`,
-                animation: `float ${Math.random() * 30 + 60}s infinite linear` 
+                animation: `float ${Math.random() * 60 + 120}s infinite linear` 
               }}
             ></div>
           ))}
