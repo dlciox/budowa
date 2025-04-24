@@ -425,19 +425,23 @@ function Home() {
       {/* Free Quote Section */}
       <section className="py-16 relative overflow-hidden">
         {/* Add gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
         
-        {/* Add animated particles/shapes in the background */}
+        {/* Add animated shapes in the background */}
         <div className="absolute inset-0 opacity-10">
-          {[...Array(10)].map((_, i) => (
+          {[...Array(6)].map((_, i) => (
             <div
               key={i}
-              className="absolute w-20 h-20 bg-yellow-400 rounded-full"
+              className="absolute rounded-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                transform: `scale(${Math.random() * 0.3 + 0.3})`,
-                animation: `float ${Math.random() * 20 + 40}s infinite ease-in-out` 
+                width: `${Math.random() * 300 + 100}px`,
+                height: `${Math.random() * 300 + 100}px`,
+                background: `linear-gradient(45deg, #fbbf24 0%, #d97706 100%)`,
+                left: `${Math.random() * 90}%`,
+                top: `${Math.random() * 90}%`,
+                transform: `scale(${Math.random() * 0.5 + 0.5})`,
+                animation: `float ${Math.random() * 15 + 25}s infinite ease-in-out`,
+                opacity: 0.3
               }}
             ></div>
           ))}
