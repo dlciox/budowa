@@ -423,12 +423,12 @@ function Home() {
       </section>
 
       {/* Free Quote Section */}
-      <section className="py-16 relative overflow-hidden">
-        {/* Simple gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/90 to-black/80"></div>
+      <section className="py-16 relative overflow-hidden bg-gray-900">
+        {/* Simple dark background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-900"></div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto bg-black/50 p-8 rounded-2xl backdrop-blur-sm border border-white/10">
+          <div className="max-w-4xl mx-auto bg-black/30 p-8 rounded-2xl backdrop-blur-sm">
             <h2 className="text-3xl md:text-4xl font-bold mb-8 scroll-animate text-center bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-200 bg-clip-text text-transparent">
               Gotowy na rozpoczęcie projektu?
             </h2>
