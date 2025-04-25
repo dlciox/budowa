@@ -166,7 +166,7 @@ function Contact() {
                       </svg>
                     </a>
                     <a 
-                      href="https://instagram.com/oskbudvip" 
+                      href="https://www.instagram.com/osk.budvip/" 
                       target="_blank" 
                       rel="noopener noreferrer"
                       className="text-white hover:text-yellow-400 transition-colors duration-300"
