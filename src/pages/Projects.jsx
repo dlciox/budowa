@@ -241,7 +241,10 @@ function Projects() {
       images: [
         images['montaz5_1'],
         images['montaz5_2'],
-        images['montaz5_3']
+        images['montaz5_3'],
+        images['montaz5_4'],
+        images['montaz5_5'],
+        images['montaz5_6']
       ],
       stats: {
         duration: "2 tygodnie",
@@ -271,7 +274,40 @@ function Projects() {
       imageUrl: images['montaz6_1'],
       images: [
         images['montaz6_1'],
-        images['montaz6_2']
+        images['montaz6_2'],
+        images['montaz6_3'],
+        images['montaz6_4']
+      ],
+      stats: {
+        duration: "2 tygodnie",
+        area: "10m²",
+        year: "2024",
+      },
+      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: [
+        "Materiał",
+        "Materiał",
+        "Materiał",
+        "Materiał"
+      ],
+      scope: [
+        "Montaż",
+        "Wykończenie",
+        "Instalacja",
+        "Prace dodatkowe"
+      ],
+    },
+    {
+      id: 7,
+      title: "Montaż 7",
+      description: "Kompleksowy montaż wraz z wykończeniem.",
+      category: "Kuchnie",
+      location: "Czeladź",
+      imageUrl: images['montaz7_1'],
+      images: [
+        images['montaz7_1'],
+        images['montaz7_2'],
+        images['montaz7_3']
       ],
       stats: {
         duration: "2 tygodnie",
