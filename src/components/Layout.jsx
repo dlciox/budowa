@@ -28,7 +28,7 @@ function Layout({ children }) {
   }[location.pathname] || pageData['/'];
 
   return (
-    <>
+    <div className="min-h-screen">
       <SEO
         title={pageData.title}
         description={pageData.description}
@@ -41,7 +41,7 @@ function Layout({ children }) {
       <main>
         {children}
       </main>
-    </>
+    </div>
   );
 }
 

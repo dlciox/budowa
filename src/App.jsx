@@ -4,6 +4,7 @@ import './index.css';
 
 // Components
 import Layout from './components/Layout';
+import Navbar from './components/Navbar';
 
 // Pages
 import Home from './pages/Home';
@@ -13,16 +14,19 @@ import Projects from './pages/Projects';
 function App() {
   return (
     <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/kontakt" element={<Contact />} />
-          <Route path="/realizacje" element={<Projects />} />
-          <Route path="/realizacje/:category" element={<Projects />} />
-          <Route path="/realizacje/:category/:slug" element={<Projects />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      </Layout>
+      <div className="relative min-h-screen">
+        <Navbar />
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/kontakt" element={<Contact />} />
+            <Route path="/realizacje" element={<Projects />} />
+            <Route path="/realizacje/:category" element={<Projects />} />
+            <Route path="/realizacje/:category/:slug" element={<Projects />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        </Layout>
+      </div>
     </Router>
   );
 }
