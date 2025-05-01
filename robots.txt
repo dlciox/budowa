@@ -1,4 +1,22 @@
 User-agent: *
 Allow: /
+Allow: /realizacje/
+Allow: /kontakt/
 
+# Prevent crawling of search results and filtered pages
+Disallow: /realizacje?*
+Disallow: /*?search=*
+
+# Allow crawling of key content types
+Allow: /*.html$
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.svg$
+
+# Rate limiting
+Crawl-delay: 1
+
+# Sitemaps
 Sitemap: https://oskbudvip.pl/sitemap.xml
