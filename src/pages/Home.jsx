@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import buildingImage from '../assets/montaz6/building-1080594_1280.jpg';
-import { images } from '../components/Import';
+import buildingImage from "../assets/montaz6/building-1080594_1280.jpg";
+import { images } from "../components/Import";
+import SEO from "../components/SEO";
 
 function Home() {
   // Stan do śledzenia pozycji przewijania dla efektu paralaksy
@@ -139,33 +140,39 @@ function Home() {
           title: "Montaż 1",
           description: "Kompleksowy montaż wraz z wykończeniem.",
           category: "Kuchnie",
-          imageUrl: images['montaz1_1'],
+          imageUrl: images["montaz1_1"],
         },
         {
           id: 2,
           title: "Montaż 2",
           description: "Kompleksowy montaż wraz z wykończeniem.",
           category: "Kuchnie",
-          imageUrl: images['montaz2_1'],
+          imageUrl: images["montaz2_1"],
         },
         {
           id: 3,
           title: "Montaż 3",
           description: "Kompleksowy montaż wraz z wykończeniem.",
           category: "Przedpokoje",
-          imageUrl: images['montaz3_1'],
+          imageUrl: images["montaz3_1"],
         },
       ];
-      
+
       // Shuffle and get first 3
       return [...allProjects].sort(() => 0.5 - Math.random()).slice(0, 3);
     };
-    
+
     setFeaturedProjects(getRandomProjects());
   }, []);
 
   return (
     <div className="min-h-screen">
+      <SEO
+        title="Montaż Kuchni, Wykończenia Wnętrz, Remonty Kompleksowe Czeladź | Osk.BudVip"
+        description="Profesjonalny montaż kuchni, mebli kuchennych, wykończenia wnętrz, remonty kompleksowe i prace stolarskie w Czeladzi. Szybko, solidnie, konkurencyjne ceny."
+        keywords="montaż kuchni Czeladź, wykończenia wnętrz Czeladź, remonty kompleksowe Czeladź, prace stolarskie Czeladź, montaż mebli kuchennych Czeladź, montaż kuchni Śląsk, wykończenia wnętrz Śląsk, remonty kompleksowe Śląsk, prace stolarskie Śląsk, montaż mebli kuchennych Śląsk"
+        canonical="https://oskbudvip.pl/"
+      />
       <section
         id="home"
         className="relative h-screen flex items-center overflow-hidden"
@@ -240,10 +247,7 @@ function Home() {
       </section>
 
       {/* Services Section z animacją */}
-      <section
-        id="services"
-        className="py-20 bg-gray-50 scroll-margin-top-24"
-      >
+      <section id="services" className="py-20 bg-gray-50 scroll-margin-top-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4 scroll-animate">
@@ -372,13 +376,12 @@ function Home() {
               </ul>
             </div>
             <div className="mt-6 md:mt-0">
-              <div 
-                className="aspect-square w-full bg-cover bg-center rounded-lg" 
+              <div
+                className="aspect-square w-full bg-cover bg-center rounded-lg"
                 style={{
-                  backgroundImage: `url(${buildingImage})`
+                  backgroundImage: `url(${buildingImage})`,
                 }}
-              >
-              </div>
+              ></div>
             </div>
           </div>
         </div>
@@ -433,15 +436,17 @@ function Home() {
               Gotowy na rozpoczęcie projektu?
             </h2>
             <p className="text-xl mb-10 text-gray-300 max-w-3xl mx-auto scroll-animate text-center">
-              Skontaktuj się z nami już dziś, aby omówić szczegóły Twojego projektu.
-              Oferujemy bezpłatną wycenę i profesjonalne doradztwo.
+              Skontaktuj się z nami już dziś, aby omówić szczegóły Twojego
+              projektu. Oferujemy bezpłatną wycenę i profesjonalne doradztwo.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6">
               <Link
                 to="/kontakt"
                 className="group relative overflow-hidden rounded-lg bg-yellow-400 px-8 py-4 text-black transition-transform hover:scale-105"
               >
-                <span className="relative z-10 font-bold">Otrzymaj darmową wycenę</span>
+                <span className="relative z-10 font-bold">
+                  Otrzymaj darmową wycenę
+                </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
               </Link>
               <a
@@ -464,14 +469,16 @@ function Home() {
               Zobacz nasze realizacje
             </h2>
             <p className="text-xl mb-8 max-w-3xl mx-auto scroll-animate text-gray-600">
-              Sprawdź nasze najnowsze projekty i przekonaj się o jakości naszych usług.
-              Ponad 50 zadowolonych klientów i setki udanych realizacji.
+              Sprawdź nasze najnowsze projekty i przekonaj się o jakości naszych
+              usług. Ponad 50 zadowolonych klientów i setki udanych realizacji.
             </p>
             <Link
               to="/realizacje"
               className="inline-block group relative overflow-hidden rounded-lg bg-yellow-400 px-8 py-4 text-black transition-all duration-300 hover:scale-105"
             >
-              <span className="relative z-10 font-bold">Zobacz wszystkie realizacje</span>
+              <span className="relative z-10 font-bold">
+                Zobacz wszystkie realizacje
+              </span>
               <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-yellow-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
             </Link>
           </div>
@@ -494,14 +501,26 @@ function Home() {
                   <div className="text-sm font-semibold bg-yellow-400 text-black px-3 py-1 rounded-full inline-block mb-2 w-fit">
                     {project.category}
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
+                  <h3 className="text-2xl font-bold text-white mb-2">
+                    {project.title}
+                  </h3>
                   <p className="text-gray-200 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     {project.description}
                   </p>
                   <span className="mt-4 inline-flex items-center text-yellow-400 font-semibold group-hover:translate-x-2 transition-transform">
                     Zobacz więcej
-                    <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
                     </svg>
                   </span>
                 </div>
@@ -588,13 +607,14 @@ const services = [
   },
   {
     title: "Przeprowadzki",
-    description: "Profesjonalna pomoc przy przeprowadzkach: transport, wnoszenie mebli, demontaż i montaż wyposażenia.",
+    description:
+      "Profesjonalna pomoc przy przeprowadzkach: transport, wnoszenie mebli, demontaż i montaż wyposażenia.",
     icon: (
       <svg className="w-full h-full" fill="currentColor" viewBox="0 0 24 24">
-        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+        <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
       </svg>
     ),
-  }
+  },
 ];
 
 export default Home;

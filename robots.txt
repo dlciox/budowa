@@ -1,4 +1,11 @@
 User-agent: *
 Allow: /
+Allow: /realizacje
+Allow: /kontakt
+Disallow: /assets/
 
+# XML Sitemap
 Sitemap: https://oskbudvip.pl/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10

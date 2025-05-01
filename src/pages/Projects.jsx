@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { images } from '../components/Import';
+import { images } from "../components/Import";
+import SEO from "../components/SEO";
 
 function Projects() {
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -113,32 +114,23 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: images['montaz1_1'],
+      imageUrl: images["montaz1_1"],
       images: [
-        images['montaz1_1'],
-        images['montaz1_2'],
-        images['montaz1_3'],
-        images['montaz1_4'],
-        images['montaz1_5']
+        images["montaz1_1"],
+        images["montaz1_2"],
+        images["montaz1_3"],
+        images["montaz1_4"],
+        images["montaz1_5"],
       ],
       stats: {
         duration: "2 tygodnie",
         area: "10m²",
         year: "2024",
       },
-      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
-      materials: [
-        "Materiał",
-        "Materiał",
-        "Materiał",
-        "Materiał"
-      ],
-      scope: [
-        "Montaż",
-        "Wykończenie",
-        "Instalacja",
-        "Prace dodatkowe"
-      ],
+      fullDescription:
+        "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
+      scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
     },
     {
       id: 2,
@@ -146,31 +138,22 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: images['montaz2_1'],
+      imageUrl: images["montaz2_1"],
       images: [
-        images['montaz2_1'],
-        images['montaz2_2'],
-        images['montaz2_3'],
-        images['montaz2_4']
+        images["montaz2_1"],
+        images["montaz2_2"],
+        images["montaz2_3"],
+        images["montaz2_4"],
       ],
       stats: {
         duration: "2 tygodnie",
         area: "10m²",
         year: "2024",
       },
-      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
-      materials: [
-        "Materiał",
-        "Materiał",
-        "Materiał",
-        "Materiał"
-      ],
-      scope: [
-        "Montaż",
-        "Wykończenie",
-        "Instalacja",
-        "Prace dodatkowe"
-      ],
+      fullDescription:
+        "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
+      scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
     },
     {
       id: 3,
@@ -178,29 +161,17 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: images['montaz3_1'],
-      images: [
-        images['montaz3_1'],
-        images['montaz3_2']
-      ],
+      imageUrl: images["montaz3_1"],
+      images: [images["montaz3_1"], images["montaz3_2"]],
       stats: {
         duration: "2 tygodnie",
         area: "10m²",
         year: "2024",
       },
-      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
-      materials: [
-        "Materiał",
-        "Materiał",
-        "Materiał",
-        "Materiał"
-      ],
-      scope: [
-        "Montaż",
-        "Wykończenie",
-        "Instalacja",
-        "Prace dodatkowe"
-      ],
+      fullDescription:
+        "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
+      scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
     },
     {
       id: 4,
@@ -208,28 +179,17 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: images['montaz4_1'],
-      images: [
-        images['montaz4_1']
-      ],
+      imageUrl: images["montaz4_1"],
+      images: [images["montaz4_1"]],
       stats: {
         duration: "2 tygodnie",
         area: "10m²",
         year: "2024",
       },
-      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
-      materials: [
-        "Materiał",
-        "Materiał",
-        "Materiał",
-        "Materiał"
-      ],
-      scope: [
-        "Montaż",
-        "Wykończenie",
-        "Instalacja",
-        "Prace dodatkowe"
-      ],
+      fullDescription:
+        "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
+      scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
     },
     {
       id: 5,
@@ -237,33 +197,24 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: images['montaz5_1'],
+      imageUrl: images["montaz5_1"],
       images: [
-        images['montaz5_1'],
-        images['montaz5_2'],
-        images['montaz5_3'],
-        images['montaz5_4'],
-        images['montaz5_5'],
-        images['montaz5_6']
+        images["montaz5_1"],
+        images["montaz5_2"],
+        images["montaz5_3"],
+        images["montaz5_4"],
+        images["montaz5_5"],
+        images["montaz5_6"],
       ],
       stats: {
         duration: "2 tygodnie",
         area: "10m²",
         year: "2024",
       },
-      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
-      materials: [
-        "Materiał",
-        "Materiał",
-        "Materiał",
-        "Materiał"
-      ],
-      scope: [
-        "Montaż",
-        "Wykończenie",
-        "Instalacja",
-        "Prace dodatkowe"
-      ],
+      fullDescription:
+        "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
+      scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
     },
     {
       id: 6,
@@ -271,31 +222,22 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: images['montaz6_1'],
+      imageUrl: images["montaz6_1"],
       images: [
-        images['montaz6_1'],
-        images['montaz6_2'],
-        images['montaz6_3'],
-        images['montaz6_4']
+        images["montaz6_1"],
+        images["montaz6_2"],
+        images["montaz6_3"],
+        images["montaz6_4"],
       ],
       stats: {
         duration: "2 tygodnie",
         area: "10m²",
         year: "2024",
       },
-      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
-      materials: [
-        "Materiał",
-        "Materiał",
-        "Materiał",
-        "Materiał"
-      ],
-      scope: [
-        "Montaż",
-        "Wykończenie",
-        "Instalacja",
-        "Prace dodatkowe"
-      ],
+      fullDescription:
+        "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
+      scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
     },
     {
       id: 7,
@@ -303,31 +245,18 @@ function Projects() {
       description: "Kompleksowy montaż wraz z wykończeniem.",
       category: "Kuchnie",
       location: "Czeladź",
-      imageUrl: images['montaz7_1'],
-      images: [
-        images['montaz7_1'],
-        images['montaz7_2'],
-        images['montaz7_3']
-      ],
+      imageUrl: images["montaz7_1"],
+      images: [images["montaz7_1"], images["montaz7_2"], images["montaz7_3"]],
       stats: {
         duration: "2 tygodnie",
         area: "10m²",
         year: "2024",
       },
-      fullDescription: "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
-      materials: [
-        "Materiał",
-        "Materiał",
-        "Materiał",
-        "Materiał"
-      ],
-      scope: [
-        "Montaż",
-        "Wykończenie",
-        "Instalacja",
-        "Prace dodatkowe"
-      ],
-    }
+      fullDescription:
+        "Kompleksowy projekt montażu obejmujący pełen zakres prac wykończeniowych.",
+      materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
+      scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
+    },
   ]);
 
   const categories = [
@@ -440,11 +369,22 @@ function Projects() {
     {
       id: "Przeprowadzki",
       title: "Przeprowadzki",
-      description: "Kompleksowa pomoc przy przeprowadzkach, transport i montaż mebli",
+      description:
+        "Kompleksowa pomoc przy przeprowadzkach, transport i montaż mebli",
       image: "https://placehold.co/800x400/e6e6e6/808080?text=Przeprowadzki",
       icon: (
-        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+        <svg
+          className="w-8 h-8"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"
+          />
         </svg>
       ),
     },
@@ -456,6 +396,12 @@ function Projects() {
 
   return (
     <div className="min-h-screen bg-gray-100 pt-32">
+      <SEO
+        title="Realizacje, Projekty i Prace Budowlane Czeladź | Osk.BudVip"
+        description="Zobacz nasze realizacje: montaż kuchni, wykończenia wnętrz, wymiana stolarki, prace konstrukcyjne i remonty w Czeladzi. Portfolio profesjonalnych usług."
+        keywords="projekty budowlane Czeladź, realizacje remontów Czeladź, montaż kuchni Czeladź, wykończenia wnętrz Czeladź, portfolio usług Czeladź, projekty budowlane Śląsk, realizacje remontów Śląsk, montaż kuchni Śląsk, wykończenia wnętrz Śląsk, portfolio usług Śląsk"
+        canonical="https://oskbudvip.pl/projects"
+      />
       {!selectedCategory && !selectedProject ? (
         <div
           className={`container mx-auto px-4 py-8 transition-all duration-500 ${
