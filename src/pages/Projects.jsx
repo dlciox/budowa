@@ -149,61 +149,62 @@ function Projects() {
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9\s]/g, "");
+      .replace(/[^a-z0-9\s]/g, "")
+      .trim();
   };
 
-  const searchSimilarity = (text, search) => {
-    text = normalizeText(text);
-    search = normalizeText(search);
+  const searchSimilarity = (text, searchQuery) => {
+    const normalizedText = normalizeText(text);
+    const normalizedQuery = normalizeText(searchQuery);
     
-    // Exact match
-    if (text.includes(search)) return true;
+    // Split search query into words
+    const searchTerms = normalizedQuery.split(/\s+/);
     
-    // Handle typos (one character difference)
-    if (Math.abs(text.length - search.length) <= 1) {
-      let mistakes = 0;
-      for (let i = 0, j = 0; i < text.length && j < search.length;) {
-        if (text[i] === search[j]) {
-          i++;
-          j++;
-        } else {
-          mistakes++;
-          if (mistakes > 1) return false;
-          if (text.length > search.length) i++;
-          else if (text.length < search.length) j++;
-          else {
-            i++;
-            j++;
-          }
-        }
+    // Check if all search terms are present in the text
+    return searchTerms.every(term => {
+      // Exact match for the whole word
+      if (normalizedText.includes(` ${term} `) || 
+          normalizedText.startsWith(`${term} `) || 
+          normalizedText.endsWith(` ${term}`) || 
+          normalizedText === term) {
+        return true;
       }
-      return true;
-    }
-    
-    return false;
+      
+      // For numbers, require exact match
+      if (/^\d+$/.test(term)) {
+        return normalizedText.includes(term);
+      }
+      
+      // For short terms (3 chars or less), require exact match
+      if (term.length <= 3) {
+        return normalizedText.includes(term);
+      }
+      
+      // For longer terms, allow partial matches (minimum 4 characters)
+      if (term.length > 3) {
+        return normalizedText.includes(term);
+      }
+      
+      return false;
+    });
   };
 
   useEffect(() => {
-    filterProjects();
-  }, [searchTerm, selectedCategory]);
-
-  const filterProjects = () => {
     let filtered = [...projects];
     
     if (selectedCategory && selectedCategory !== 'all') {
       filtered = filtered.filter(project => project.category === selectedCategory);
     }
     
-    if (searchTerm) {
-      filtered = filtered.filter(project => 
-        searchSimilarity(project.title, searchTerm) ||
-        searchSimilarity(project.description, searchTerm) ||
-        project.tags.some(tag => searchSimilarity(tag, searchTerm))
-      );
+    if (searchTerm.trim()) {
+      filtered = filtered.filter(project => {
+        const searchableText = `${project.title} ${project.description} ${project.category} ${project.tags.join(' ')}`;
+        return searchSimilarity(searchableText, searchTerm);
+      });
     }
     
     setFilteredProjects(filtered);
-  };
+  }, [searchTerm, selectedCategory, projects]);
 
   const handleCategoryChange = (categoryId) => {
     setSelectedCategory(categoryId);
