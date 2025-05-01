@@ -5,9 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "react-scripts build && npm run generate-sitemap",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "generate-sitemap": "node src/utils/generateSitemap.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

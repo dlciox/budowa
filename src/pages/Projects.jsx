@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { images } from "../components/Import";
 import SEO from "../components/SEO";
+import SearchOptimizer from "../components/SearchOptimizer";
 
 function Projects() {
+  const { category } = useParams();
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [animateContent, setAnimateContent] = useState(false);
@@ -11,6 +13,7 @@ function Projects() {
   const [animatedProjects, setAnimatedProjects] = useState([]);
   const [hoverCategory, setHoverCategory] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [filteredProjects, setFilteredProjects] = useState(projects);
 
   useEffect(() => {
     setAnimateContent(false);
@@ -107,7 +110,7 @@ function Projects() {
     }
   }, [selectedProject]);
 
-  const [projects, setProjects] = useState([
+  const projects = [
     {
       id: 1,
       title: "Montaż 1",
@@ -257,7 +260,15 @@ function Projects() {
       materials: ["Materiał", "Materiał", "Materiał", "Materiał"],
       scope: ["Montaż", "Wykończenie", "Instalacja", "Prace dodatkowe"],
     },
-  ]);
+  ];
+
+  const handleSearchResults = (results) => {
+    setFilteredProjects(results);
+  };
+
+  const displayedProjects = category
+    ? filteredProjects.filter((p) => p.category === category)
+    : filteredProjects;
 
   const categories = [
     {
@@ -390,10 +401,6 @@ function Projects() {
     },
   ];
 
-  const filteredProjects = selectedCategory
-    ? projects.filter((project) => project.category === selectedCategory)
-    : [];
-
   return (
     <div className="min-h-screen bg-gray-100 pt-32">
       <SEO
@@ -402,532 +409,21 @@ function Projects() {
         keywords="projekty budowlane Czeladź, realizacje remontów Czeladź, montaż kuchni Czeladź, wykończenia wnętrz Czeladź, portfolio usług Czeladź, projekty budowlane Śląsk, realizacje remontów Śląsk, montaż kuchni Śląsk, wykończenia wnętrz Śląsk, portfolio usług Śląsk"
         canonical="https://oskbudvip.pl/projects"
       />
-      {!selectedCategory && !selectedProject ? (
-        <div
-          className={`container mx-auto px-4 py-8 transition-all duration-500 ${
-            exitAnimation
-              ? "opacity-0 transform -translate-y-10"
-              : "opacity-100"
-          }`}
-        >
-          <div className="max-w-4xl mx-auto">
-            <h1
-              className={`text-4xl font-bold mb-4 text-center transition-all duration-700 ${
-                animateContent
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 -translate-y-10"
-              }`}
-            >
-              Nasze Realizacje
-            </h1>
-            <p
-              className={`text-gray-600 text-lg mb-12 text-center transition-all duration-700 delay-100 ${
-                animateContent
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 -translate-y-10"
-              }`}
-            >
-              Odkryj nasze profesjonalne projekty w różnych kategoriach
-            </p>
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-8">
+          {category ? `Realizacje - ${category}` : "Wszystkie realizacje"}
+        </h1>
 
-            <div className="space-y-4">
-              {categories.map((category, index) => (
-                <div
-                  key={category.id}
-                  className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer group transform ${
-                    animateContent
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-10"
-                  }`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                  onClick={() => handleCategoryChange(category.id)}
-                  onMouseEnter={() => setHoverCategory(category.id)}
-                  onMouseLeave={() => setHoverCategory(null)}
-                >
-                  <div className="flex items-center p-6 relative">
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-transparent transition-opacity duration-300 ${
-                        hoverCategory === category.id
-                          ? "opacity-100"
-                          : "opacity-0"
-                      }`}
-                    ></div>
+        <SearchOptimizer items={projects} onResultsChange={handleSearchResults} />
 
-                    <div className="mr-6 p-3 bg-yellow-400 rounded-lg text-black relative z-10 transition-all duration-300 transform group-hover:scale-110">
-                      {category.icon}
-                    </div>
-
-                    <div className="flex-grow relative z-10">
-                      <h2 className="text-2xl font-bold mb-2 group-hover:text-yellow-600 transition-colors">
-                        {category.title}
-                      </h2>
-                      <p className="text-gray-600">{category.description}</p>
-                    </div>
-
-                    <div className="ml-4 transform group-hover:translate-x-2 transition-transform duration-300 relative z-10">
-                      <svg
-                        className="w-6 h-6 text-yellow-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+          {displayedProjects.map((project, index) => (
+            <article key={index} className="border rounded-lg overflow-hidden">
+              {/* Project card content */}
+            </article>
+          ))}
         </div>
-      ) : selectedProject ? (
-        <div
-          className={`container mx-auto px-4 py-8 transition-all duration-500 ${
-            exitAnimation ? "opacity-0 transform translate-y-10" : "opacity-100"
-          }`}
-        >
-          <div className="max-w-5xl mx-auto">
-            <div
-              className={`flex items-center mb-8 transition-all duration-500 ${
-                animateContent
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-10"
-              }`}
-            >
-              <button
-                onClick={handleBackToProjects}
-                className="mr-4 p-2 hover:bg-gray-200 rounded-full transition-colors"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <h1 className="text-3xl font-bold">{selectedProject.title}</h1>
-            </div>
-
-            <div
-              className={`bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-700 ${
-                animateContent ? "opacity-100 scale-100" : "opacity-0 scale-95"
-              }`}
-            >
-              <div className="relative h-96 bg-gray-800">
-                {selectedProject.images &&
-                  selectedProject.images.map((img, index) => (
-                    <div
-                      key={index}
-                      className={`absolute inset-0 transition-opacity duration-1000 ${
-                        currentSlide === index
-                          ? "opacity-100 z-10"
-                          : "opacity-0 z-0"
-                      }`}
-                    >
-                      <img
-                        src={img}
-                        alt={`${selectedProject.title} - zdjęcie ${index + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  ))}
-
-                <div className="absolute inset-0 flex items-center justify-between z-20 px-4">
-                  <button
-                    className="w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-                    onClick={prevSlide}
-                  >
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M15 19l-7-7 7-7"
-                      />
-                    </svg>
-                  </button>
-                  <button
-                    className="w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition-colors"
-                    onClick={nextSlide}
-                  >
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
-                </div>
-
-                <div className="absolute bottom-4 left-0 right-0 flex justify-center space-x-2 z-20">
-                  {selectedProject.images &&
-                    selectedProject.images.map((_, index) => (
-                      <button
-                        key={index}
-                        className={`w-3 h-3 rounded-full transition-colors ${
-                          currentSlide === index
-                            ? "bg-yellow-400"
-                            : "bg-white/50"
-                        }`}
-                        onClick={() => setCurrentSlide(index)}
-                      />
-                    ))}
-                </div>
-              </div>
-
-              <div className="p-8">
-                <div className="flex flex-wrap items-center justify-between mb-6">
-                  <div>
-                    <div className="text-sm font-semibold bg-yellow-400 text-black px-3 py-1 rounded-full inline-block mb-2">
-                      {selectedProject.category}
-                    </div>
-                    <h2 className="text-2xl font-bold">
-                      {selectedProject.title}
-                    </h2>
-                  </div>
-                  <div className="flex flex-wrap items-center gap-4 mt-2 md:mt-0">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <svg
-                        className="w-5 h-5 mr-2 text-yellow-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                      </svg>
-                      {selectedProject.location}
-                    </div>
-                    {selectedProject.stats.year && (
-                      <div className="flex items-center text-sm text-gray-500">
-                        <svg
-                          className="w-5 h-5 mr-2 text-yellow-400"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        {selectedProject.stats.year}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-                  <div className="lg:col-span-2">
-                    <h3 className="text-xl font-bold mb-4">Opis projektu</h3>
-                    <p className="text-gray-600 mb-6">
-                      {selectedProject.fullDescription ||
-                        selectedProject.description}
-                    </p>
-
-                    {selectedProject.scope && (
-                      <div className="mb-6">
-                        <h4 className="font-bold mb-2">Zakres prac:</h4>
-                        <ul className="list-disc pl-5 text-gray-600 space-y-1">
-                          {selectedProject.scope.map((item, index) => (
-                            <li key={index}>{item}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="bg-gray-50 p-6 rounded-lg">
-                    <h3 className="text-xl font-bold mb-4">Szczegóły</h3>
-
-                    <div className="space-y-4">
-                      {selectedProject.stats.duration && (
-                        <div className="flex items-start">
-                          <svg
-                            className="w-5 h-5 mr-3 text-yellow-400 mt-0.5 flex-shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                          <div>
-                            <div className="font-semibold">Czas realizacji</div>
-                            <div className="text-gray-600">
-                              {selectedProject.stats.duration}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {selectedProject.stats.area && (
-                        <div className="flex items-start">
-                          <svg
-                            className="w-5 h-5 mr-3 text-yellow-400 mt-0.5 flex-shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                            />
-                          </svg>
-                          <div>
-                            <div className="font-semibold">Powierzchnia</div>
-                            <div className="text-gray-600">
-                              {selectedProject.stats.area}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {selectedProject.stats.units && (
-                        <div className="flex items-start">
-                          <svg
-                            className="w-5 h-5 mr-3 text-yellow-400 mt-0.5 flex-shrink-0"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-                            />
-                          </svg>
-                          <div>
-                            <div className="font-semibold">Ilość</div>
-                            <div className="text-gray-600">
-                              {selectedProject.stats.units}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-
-                    {selectedProject.materials && (
-                      <div className="mt-6">
-                        <h4 className="font-semibold mb-2">Użyte materiały:</h4>
-                        <ul className="text-gray-600 space-y-1">
-                          {selectedProject.materials.map((material, index) => (
-                            <li key={index} className="flex items-center">
-                              <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span>
-                              {material}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="bg-gray-50 p-6 rounded-lg">
-                  <div className="flex flex-col md:flex-row items-center justify-between">
-                    <div className="mb-4 md:mb-0">
-                      <h3 className="text-xl font-bold">
-                        Podobał Ci się ten projekt?
-                      </h3>
-                      <p className="text-gray-600">
-                        Skontaktuj się z nami, aby omówić swój projekt.
-                      </p>
-                    </div>
-                    <Link
-                      to="/kontakt"
-                      className="bg-yellow-400 text-black px-6 py-3 rounded-lg font-semibold hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105 hover:shadow-md"
-                    >
-                      Skontaktuj się
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div
-          className={`container mx-auto px-4 py-8 transition-all duration-500 ${
-            exitAnimation ? "opacity-0 transform translate-y-10" : "opacity-100"
-          }`}
-        >
-          <div className="max-w-5xl mx-auto">
-            <div
-              className={`flex items-center mb-8 transition-all duration-500 ${
-                animateContent
-                  ? "opacity-100 translate-x-0"
-                  : "opacity-0 -translate-x-10"
-              }`}
-            >
-              <button
-                onClick={() => handleCategoryChange(null)}
-                className="mr-4 p-2 hover:bg-gray-200 rounded-full transition-colors"
-              >
-                <svg
-                  className="w-6 h-6 text-gray-600"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-              <h1 className="text-3xl font-bold">{selectedCategory}</h1>
-            </div>
-
-            <div className="space-y-8">
-              {filteredProjects.map((project, index) => (
-                <div
-                  key={project.id}
-                  className={`bg-white rounded-lg shadow-md overflow-hidden transition-all hover:shadow-lg duration-500 transform 
-                    ${
-                      animatedProjects.includes(project.id)
-                        ? "opacity-100 translate-y-0"
-                        : "opacity-0 translate-y-20"
-                    }`}
-                  style={{ transitionDelay: `${index * 150}ms` }}
-                  onClick={() => handleProjectSelect(project)}
-                >
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="relative h-64 md:h-full overflow-hidden">
-                      <img
-                        src={project.imageUrl}
-                        alt={project.title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <div className="text-white">
-                          <div className="text-sm font-semibold bg-yellow-400 text-black px-3 py-1 rounded-full inline-block mb-2">
-                            {project.category}
-                          </div>
-                          <h3 className="text-xl font-bold">{project.title}</h3>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <p className="text-gray-600 mb-6">
-                        {project.description}
-                      </p>
-                      <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="flex items-center text-sm text-gray-500">
-                          <svg
-                            className="w-5 h-5 mr-2 text-yellow-400"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                            />
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                            />
-                          </svg>
-                          {project.location}
-                        </div>
-                        {project.stats.duration && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <svg
-                              className="w-5 h-5 mr-2 text-yellow-400"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                            {project.stats.duration}
-                          </div>
-                        )}
-                        {project.stats.area && (
-                          <div className="flex items-center text-sm text-gray-500">
-                            <svg
-                              className="w-5 h-5 mr-2 text-yellow-400"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-                              />
-                            </svg>
-                            {project.stats.area}
-                          </div>
-                        )}
-                      </div>
-                      <button className="bg-yellow-400 text-black px-6 py-2 rounded-lg font-semibold hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105 hover:shadow-md">
-                        Zobacz szczegóły
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
+      </div>
     </div>
   );
 }
