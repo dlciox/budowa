@@ -42,6 +42,7 @@ function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-10">
             {[
+              { nazwa: 'Strona Główna', akcja: () => navigate('/') },
               { nazwa: 'O nas', akcja: () => scrollToSection('about') },
               { nazwa: 'Usługi', akcja: () => scrollToSection('services') },
               { nazwa: 'Realizacje', akcja: () => navigate('/realizacje') },
@@ -83,6 +84,7 @@ function Navbar() {
       <div className={`${isOpen ? 'block' : 'hidden'} md:hidden bg-black border-t border-gray-800`}>
         <div className="px-4 py-4 space-y-3">
           {[
+            { nazwa: 'Strona Główna', akcja: () => navigate('/') },
             { nazwa: 'O nas', akcja: () => scrollToSection('about') },
             { nazwa: 'Usługi', akcja: () => scrollToSection('services') },
             { nazwa: 'Realizacje', akcja: () => navigate('/realizacje') },
