@@ -7,8 +7,6 @@ const CATEGORIES = [
   { id: 'kuchnie', name: 'Kuchnie' },
   { id: 'lazienki', name: 'Łazienki' },
   { id: 'przedpokoje', name: 'Przedpokoje' },
-  { id: 'szafy', name: 'Szafy' },
-  { id: 'meble-na-wymiar', name: 'Meble na wymiar' },
   { id: 'remonty', name: 'Remonty' }
 ];
 
@@ -157,36 +155,51 @@ function Projects() {
     const normalizedText = normalizeText(text);
     const normalizedQuery = normalizeText(searchQuery);
     
-    // Split search query into words
-    const searchTerms = normalizedQuery.split(/\s+/);
+    // Split search query into words and filter out empty strings
+    const searchTerms = normalizedQuery.split(/\s+/).filter(Boolean);
     
-    // Check if all search terms are present in the text
-    return searchTerms.every(term => {
-      // Exact match for the whole word
-      if (normalizedText.includes(` ${term} `) || 
-          normalizedText.startsWith(`${term} `) || 
-          normalizedText.endsWith(` ${term}`) || 
-          normalizedText === term) {
-        return true;
+    // If no valid search terms, return true to show all results
+    if (searchTerms.length === 0) return true;
+    
+    // Check if any search term is present in the text
+    return searchTerms.some(term => {
+      // For very short terms (2 chars or less), require exact match
+      if (term.length <= 2) {
+        return normalizedText.includes(` ${term} `) || 
+               normalizedText.startsWith(`${term} `) || 
+               normalizedText.endsWith(` ${term}`) || 
+               normalizedText === term;
       }
       
-      // For numbers, require exact match
-      if (/^\d+$/.test(term)) {
-        return normalizedText.includes(term);
-      }
-      
-      // For short terms (3 chars or less), require exact match
-      if (term.length <= 3) {
-        return normalizedText.includes(term);
-      }
-      
-      // For longer terms, allow partial matches (minimum 4 characters)
-      if (term.length > 3) {
-        return normalizedText.includes(term);
-      }
-      
-      return false;
+      // For longer terms, allow partial matches with 60% similarity
+      return normalizedText.includes(term) || 
+             // Add fuzzy matching for typos
+             normalizedText.split(' ').some(word => 
+               levenshteinDistance(word, term) <= Math.max(2, Math.floor(term.length * 0.4))
+             );
     });
+  };
+
+  // Add Levenshtein distance calculation for fuzzy matching
+  const levenshteinDistance = (str1, str2) => {
+    const track = Array(str2.length + 1).fill(null).map(() =>
+      Array(str1.length + 1).fill(null));
+    
+    for(let i = 0; i <= str1.length; i++) track[0][i] = i;
+    for(let j = 0; j <= str2.length; j++) track[j][0] = j;
+    
+    for(let j = 1; j <= str2.length; j++) {
+      for(let i = 1; i <= str1.length; i++) {
+        const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
+        track[j][i] = Math.min(
+          track[j][i - 1] + 1,
+          track[j - 1][i] + 1,
+          track[j - 1][i - 1] + indicator
+        );
+      }
+    }
+    
+    return track[str2.length][str1.length];
   };
 
   useEffect(() => {
