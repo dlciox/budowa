@@ -144,6 +144,45 @@ function Projects() {
     },
   ];
 
+  const normalizeText = (text) => {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^a-z0-9\s]/g, "");
+  };
+
+  const searchSimilarity = (text, search) => {
+    text = normalizeText(text);
+    search = normalizeText(search);
+    
+    // Exact match
+    if (text.includes(search)) return true;
+    
+    // Handle typos (one character difference)
+    if (Math.abs(text.length - search.length) <= 1) {
+      let mistakes = 0;
+      for (let i = 0, j = 0; i < text.length && j < search.length;) {
+        if (text[i] === search[j]) {
+          i++;
+          j++;
+        } else {
+          mistakes++;
+          if (mistakes > 1) return false;
+          if (text.length > search.length) i++;
+          else if (text.length < search.length) j++;
+          else {
+            i++;
+            j++;
+          }
+        }
+      }
+      return true;
+    }
+    
+    return false;
+  };
+
   useEffect(() => {
     filterProjects();
   }, [searchTerm, selectedCategory]);
@@ -156,11 +195,10 @@ function Projects() {
     }
     
     if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
       filtered = filtered.filter(project => 
-        project.title.toLowerCase().includes(searchLower) ||
-        project.description.toLowerCase().includes(searchLower) ||
-        project.tags.some(tag => tag.toLowerCase().includes(searchLower))
+        searchSimilarity(project.title, searchTerm) ||
+        searchSimilarity(project.description, searchTerm) ||
+        project.tags.some(tag => searchSimilarity(tag, searchTerm))
       );
     }
     
@@ -183,14 +221,14 @@ function Projects() {
         />
 
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Nasze Realizacje</h1>
-          <div className="flex flex-wrap gap-2">
+          <h1 className="text-3xl font-bold mb-6">Nasze Realizacje</h1>
+          <div className="flex flex-wrap gap-3">
             <button
               onClick={() => handleCategoryChange('all')}
-              className={`px-4 py-2 rounded-full ${
+              className={`px-6 py-3 rounded-lg text-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${
                 selectedCategory === 'all'
-                  ? 'bg-yellow-400 text-black'
-                  : 'bg-gray-200 hover:bg-gray-300'
+                  ? 'bg-yellow-400 text-black shadow-yellow-200'
+                  : 'bg-gray-800 text-white hover:bg-gray-700'
               }`}
             >
               Wszystkie
@@ -199,10 +237,10 @@ function Projects() {
               <button
                 key={cat.id}
                 onClick={() => handleCategoryChange(cat.id)}
-                className={`px-4 py-2 rounded-full ${
+                className={`px-6 py-3 rounded-lg text-lg font-medium transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 ${
                   selectedCategory === cat.id
-                    ? 'bg-yellow-400 text-black'
-                    : 'bg-gray-200 hover:bg-gray-300'
+                    ? 'bg-yellow-400 text-black shadow-yellow-200'
+                    : 'bg-gray-800 text-white hover:bg-gray-700'
                 }`}
               >
                 {cat.name}
@@ -214,10 +252,10 @@ function Projects() {
         <div className="mb-8">
           <input
             type="text"
-            placeholder="Szukaj realizacji..."
+            placeholder="Szukaj realizacji... (np. kuchnia, łazienka, remont)"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full px-6 py-4 text-lg rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent shadow-md"
           />
         </div>
 
