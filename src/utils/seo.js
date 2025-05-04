@@ -11,33 +11,105 @@ export const createSlug = (text) => {
 };
 
 // Relevance Scoring for Search
-export const calculateRelevanceScore = (item, searchTerm) => {
-  const searchTerms = searchTerm.toLowerCase().split(' ');
+export function calculateRelevanceScore(item, searchTerm) {
+  const searchLower = searchTerm.toLowerCase();
+  const searchWords = searchLower.split(/\s+/).filter(Boolean);
   let score = 0;
 
-  // Title match (highest weight)
-  searchTerms.forEach(term => {
-    if (item.title.toLowerCase().includes(term)) score += 10;
-    if (item.title.toLowerCase().startsWith(term)) score += 5;
+  // Funkcja pomocnicza do normalizacji tekstu
+  const normalize = (text) => text.toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9\s]/g, " ");
+
+  // Normalizuj teksty do przeszukania
+  const titleNorm = normalize(item.title);
+  const descNorm = normalize(item.description);
+  const locationNorm = normalize(item.location);
+  const tagsNorm = item.tags ? item.tags.map(normalize) : [];
+  const categoryNorm = normalize(item.category);
+
+  // Wagi dla różnych pól
+  const weights = {
+    title: 10,
+    description: 5,
+    location: 8,
+    category: 7,
+    tags: 3,
+    exactMatch: 15
+  };
+
+  // Sprawdź dokładne dopasowania
+  if (titleNorm.includes(searchLower)) score += weights.exactMatch;
+  if (descNorm.includes(searchLower)) score += weights.exactMatch / 2;
+
+  // Sprawdź dopasowania poszczególnych słów
+  searchWords.forEach(word => {
+    const wordNorm = normalize(word);
+    
+    // Sprawdź w tytule
+    if (titleNorm.includes(wordNorm)) score += weights.title;
+    
+    // Sprawdź w opisie
+    if (descNorm.includes(wordNorm)) score += weights.description;
+    
+    // Sprawdź w lokalizacji
+    if (locationNorm.includes(wordNorm)) score += weights.location;
+    
+    // Sprawdź w kategorii
+    if (categoryNorm.includes(wordNorm)) score += weights.category;
+    
+    // Sprawdź w tagach
+    if (tagsNorm.some(tag => tag.includes(wordNorm))) score += weights.tags;
   });
 
-  // Description match
-  searchTerms.forEach(term => {
-    if (item.description.toLowerCase().includes(term)) score += 3;
+  // Bonus za dopasowanie wszystkich słów
+  const allWordsMatch = searchWords.every(word => {
+    const wordNorm = normalize(word);
+    return titleNorm.includes(wordNorm) || 
+           descNorm.includes(wordNorm) || 
+           locationNorm.includes(wordNorm) || 
+           categoryNorm.includes(wordNorm) ||
+           tagsNorm.some(tag => tag.includes(wordNorm));
   });
 
-  // Category match
-  searchTerms.forEach(term => {
-    if (item.category.toLowerCase().includes(term)) score += 5;
-  });
-
-  // Location match
-  searchTerms.forEach(term => {
-    if (item.location.toLowerCase().includes(term)) score += 4;
-  });
+  if (allWordsMatch) score *= 1.5;
 
   return score;
-};
+}
+
+// Funkcja do generowania meta tagów dla SEO
+export function generateMetaTags(page) {
+  const baseTitle = "Osk.BudVip - Montaż Kuchni i Remonty";
+  const baseTags = ["montaż kuchni", "remonty", "wykończenia wnętrz", "czeladź", "śląsk"];
+
+  switch (page) {
+    case "home":
+      return {
+        title: baseTitle,
+        description: "Profesjonalny montaż mebli kuchennych, remonty i wykończenia wnętrz w Czeladzi i na Śląsku. Wieloletnie doświadczenie i setki zadowolonych klientów.",
+        keywords: [...baseTags, "strona główna", "usługi remontowe", "meble na wymiar"].join(", ")
+      };
+    case "projects":
+      return {
+        title: `Realizacje | ${baseTitle}`,
+        description: "Zobacz nasze projekty i realizacje. Montaż kuchni, remonty mieszkań i wykończenia wnętrz w Czeladzi i okolicach.",
+        keywords: [...baseTags, "realizacje", "projekty", "galeria", "portfolio"].join(", ")
+      };
+    case "contact":
+      return {
+        title: `Kontakt | ${baseTitle}`,
+        description: "Skontaktuj się z nami. Oferujemy profesjonalne usługi montażu mebli i remonty na terenie Czeladzi i całego Śląska.",
+        keywords: [...baseTags, "kontakt", "wycena", "zapytanie"].join(", ")
+      };
+    default:
+      return {
+        title: baseTitle,
+        description: "Profesjonalne usługi montażu mebli i wykończenia wnętrz w Czeladzi i na Śląsku.",
+        keywords: baseTags.join(", ")
+      };
+  }
+}
 
 // Generate breadcrumb data
 export const generateBreadcrumbs = (pathname) => {

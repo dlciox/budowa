@@ -1,11 +1,15 @@
+# Global rules
 User-agent: *
 Allow: /
 Allow: /realizacje/
 Allow: /kontakt/
+Allow: /sitemap.xml
 
-# Prevent crawling of search results and filtered pages
+# Prevent duplicate content
 Disallow: /realizacje?*
-Disallow: /*?search=*
+Allow: /realizacje?location=czeladz
+Allow: /realizacje?location=slask
+Allow: /realizacje?category=*
 
 # Allow crawling of key content types
 Allow: /*.html$
@@ -15,8 +19,24 @@ Allow: /*.png$
 Allow: /*.jpg$
 Allow: /*.svg$
 
-# Rate limiting
+# Optimize crawling
 Crawl-delay: 1
 
 # Sitemaps
 Sitemap: https://oskbudvip.pl/sitemap.xml
+
+# Additional rules for specific bots
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Googlebot-Image
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.webp$
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1

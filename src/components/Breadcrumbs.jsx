@@ -1,36 +1,56 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { generateBreadcrumbs } from '../utils/seo';
+import { Link } from 'react-router-dom';
 
-function Breadcrumbs() {
-  const location = useLocation();
-  const breadcrumbs = generateBreadcrumbs(location.pathname);
-
-  if (location.pathname === '/') return null;
-
+function Breadcrumbs({ items }) {
   return (
-    <nav aria-label="Breadcrumb" className="container mx-auto px-4 py-4">
-      <ol className="flex flex-wrap items-center space-x-2 text-sm">
-        <li>
-          <Link to="/" className="text-gray-500 hover:text-yellow-400 transition-colors">
-            Strona główna
-          </Link>
-        </li>
-        {breadcrumbs.map((breadcrumb, index) => (
-          <li key={breadcrumb.url} className="flex items-center">
-            <svg className="w-4 h-4 text-gray-400 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-            {breadcrumb.isLast ? (
-              <span className="text-yellow-400 font-medium">{breadcrumb.title}</span>
+    <nav className="mb-6" aria-label="Breadcrumb">
+      <ol className="flex flex-wrap items-center space-x-2 text-sm text-gray-600">
+        {items.map((item, index) => (
+          <li key={item.url} className="flex items-center">
+            {index > 0 && (
+              <svg
+                className="w-4 h-4 mx-2 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            )}
+            {index === items.length - 1 ? (
+              <span className="text-gray-800 font-medium" aria-current="page">
+                {item.name}
+              </span>
             ) : (
-              <Link to={breadcrumb.url} className="text-gray-500 hover:text-yellow-400 transition-colors">
-                {breadcrumb.title}
+              <Link
+                to={item.url}
+                className="hover:text-yellow-600 transition-colors"
+              >
+                {item.name}
               </Link>
             )}
           </li>
         ))}
       </ol>
+
+      {/* Structured Data for Breadcrumbs */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": items.map((item, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "name": item.name,
+            "item": `https://oskbudvip.pl${item.url}`
+          }))
+        })}
+      </script>
     </nav>
   );
 }
