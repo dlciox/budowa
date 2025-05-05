@@ -12,6 +12,12 @@ function SEO({ title, description, keywords, canonical, image = "/og-image.jpg",
     updateMetaTag("description", description);
     updateMetaTag("keywords", enhancedKeywords);
 
+    // Lokalizacje i frazy dla przeprowadzek
+    const movingKeywords = "przeprowadzki Czeladź, transport mebli Czeladź, przeprowadzki Śląsk, przeprowadzki mieszkań Czeladź, profesjonalne przeprowadzki Czeladź, tanie przeprowadzki Czeladź, firma przeprowadzkowa Czeladź";
+    const enhancedKeywordsWithMoving = `${enhancedKeywords}, ${movingKeywords}`;
+    
+    updateMetaTag("keywords", enhancedKeywordsWithMoving);
+
     // Lokalizacja i zasięg działania
     updateMetaTag("geo.region", "PL-SL");
     updateMetaTag("geo.placename", "Czeladź, Śląsk");

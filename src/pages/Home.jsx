@@ -425,6 +425,60 @@ function Home() {
         </div>
       </section>
 
+      {/* Sekcja Przeprowadzki */}
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Przeprowadzki Czeladź i okolice</h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Świadczymy profesjonalne usługi przeprowadzkowe na terenie Czeladzi i całego Śląska. 
+              Nasza oferta obejmuje kompleksową obsługę przeprowadzek mieszkań, domów i firm.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-bold mb-4">Transport mebli</h3>
+              <ul className="space-y-2 text-gray-600">
+                <li>✓ Transport mebli i wyposażenia</li>
+                <li>✓ Zabezpieczenie mienia podczas transportu</li>
+                <li>✓ Doświadczona ekipa</li>
+                <li>✓ Konkurencyjne ceny</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-bold mb-4">Montaż i demontaż</h3>
+              <ul className="space-y-2 text-gray-600">
+                <li>✓ Profesjonalny demontaż mebli</li>
+                <li>✓ Ponowny montaż w nowym miejscu</li>
+                <li>✓ Fachowe narzędzia</li>
+                <li>✓ Gwarancja jakości</li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-bold mb-4">Kompleksowa obsługa</h3>
+              <ul className="space-y-2 text-gray-600">
+                <li>✓ Pakowanie rzeczy</li>
+                <li>✓ Znoszenie i wnoszenie mebli</li>
+                <li>✓ Utylizacja niepotrzebnych rzeczy</li>
+                <li>✓ Sprzątanie po przeprowadzce</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center">
+            <Link
+              to="/kontakt"
+              className="inline-block bg-yellow-400 text-black px-8 py-4 rounded-lg font-bold text-lg transition-all hover:-translate-y-1 hover:shadow-lg"
+            >
+              Zamów wycenę przeprowadzki
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Free Quote Section */}
       <section className="py-16 relative overflow-hidden bg-gray-900">
         {/* Simple dark background */}
