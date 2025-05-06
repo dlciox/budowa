@@ -189,8 +189,7 @@ function Home() {
         <div
           className="absolute inset-0 z-[-1] bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url('https://images.unsplash.com/photo-1600585152220-90363fe7e115?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')", // This image shows interior renovation/furniture work
+            backgroundImage: `url(${buildingImage})`,
             transform: `translateY(${scrollPosition * 0.3}px) scale(${
               1 + scrollPosition * 0.0005
             })`,

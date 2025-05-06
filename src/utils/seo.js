@@ -20,7 +20,8 @@ export function calculateRelevanceScore(item, searchTerm) {
   const normalize = (text) => text.toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9\s]/g, " ");
+    .replace(/[^a-z0-9\s]/g, " ")
+    .trim();
 
   // Normalizuj teksty do przeszukania
   const titleNorm = normalize(item.title);
@@ -31,24 +32,28 @@ export function calculateRelevanceScore(item, searchTerm) {
 
   // Wagi dla różnych pól
   const weights = {
-    title: 10,
-    description: 5,
+    exactMatch: 100,    // Zwiększona waga za dokładne dopasowanie
+    title: 50,          // Zwiększona waga za dopasowanie w tytule
+    description: 10,
     location: 8,
-    category: 7,
-    tags: 3,
-    exactMatch: 15
+    category: 15,
+    tags: 20           // Zwiększona waga za tagi
   };
 
-  // Sprawdź dokładne dopasowania
-  if (titleNorm.includes(searchLower)) score += weights.exactMatch;
-  if (descNorm.includes(searchLower)) score += weights.exactMatch / 2;
-
-  // Sprawdź dopasowania poszczególnych słów
+  // Sprawdź dokładne dopasowania całej frazy
+  if (titleNorm === searchLower) score += weights.exactMatch * 2;
+  if (descNorm.includes(searchLower)) score += weights.exactMatch;
+  
+  // Sprawdź dokładne dopasowania poszczególnych słów
   searchWords.forEach(word => {
     const wordNorm = normalize(word);
     
-    // Sprawdź w tytule
-    if (titleNorm.includes(wordNorm)) score += weights.title;
+    // Sprawdź dokładne dopasowanie w tytule
+    if (titleNorm.split(' ').includes(wordNorm)) {
+      score += weights.title;
+    } else if (titleNorm.includes(wordNorm)) {
+      score += weights.title / 2;
+    }
     
     // Sprawdź w opisie
     if (descNorm.includes(wordNorm)) score += weights.description;
@@ -57,10 +62,12 @@ export function calculateRelevanceScore(item, searchTerm) {
     if (locationNorm.includes(wordNorm)) score += weights.location;
     
     // Sprawdź w kategorii
-    if (categoryNorm.includes(wordNorm)) score += weights.category;
+    if (categoryNorm === wordNorm) score += weights.category * 2;
+    else if (categoryNorm.includes(wordNorm)) score += weights.category;
     
-    // Sprawdź w tagach
-    if (tagsNorm.some(tag => tag.includes(wordNorm))) score += weights.tags;
+    // Sprawdź w tagach (dokładne dopasowania)
+    if (tagsNorm.some(tag => tag === wordNorm)) score += weights.tags * 2;
+    else if (tagsNorm.some(tag => tag.includes(wordNorm))) score += weights.tags;
   });
 
   // Bonus za dopasowanie wszystkich słów
@@ -73,7 +80,14 @@ export function calculateRelevanceScore(item, searchTerm) {
            tagsNorm.some(tag => tag.includes(wordNorm));
   });
 
-  if (allWordsMatch) score *= 1.5;
+  if (allWordsMatch) score *= 2;
+
+  // Dodaj bonus za numeryczne dopasowanie (np. "montaż 2")
+  const numberInSearch = searchLower.match(/\d+/);
+  const numberInTitle = titleNorm.match(/\d+/);
+  if (numberInSearch && numberInTitle && numberInSearch[0] === numberInTitle[0]) {
+    score += weights.exactMatch * 3;
+  }
 
   return score;
 }

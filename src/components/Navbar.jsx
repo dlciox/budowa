@@ -7,11 +7,24 @@ function Navbar() {
   const location = useLocation();
 
   const scrollToSection = (sectionId) => {
-    setIsOpen(false); // Zamknij menu mobilne
+    setIsOpen(false);
     
     if (location.pathname !== '/') {
-      // Jeśli nie jesteśmy na stronie głównej, najpierw przekieruj
-      navigate('/', { state: { scrollTo: sectionId } });
+      navigate('/');
+      // Set timeout to allow navigation to complete before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const headerOffset = 100;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+          });
+        }
+      }, 100);
       return;
     }
     
