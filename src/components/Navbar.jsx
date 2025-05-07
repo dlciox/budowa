@@ -6,16 +6,26 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Zamykamy menu po zmianie ścieżki
+  useEffect(() => {
+    setIsOpen(false);
+  }, [location.pathname]);
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    setIsOpen(false);
+    window.scrollTo(0, 0); // Przewiń na górę po nawigacji
+  };
+
   const scrollToSection = (sectionId) => {
     setIsOpen(false);
     
     if (location.pathname !== '/') {
       navigate('/');
-      // Set timeout to allow navigation to complete before scrolling
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
-          const headerOffset = 100;
+          const headerOffset = 80;
           const elementPosition = element.getBoundingClientRect().top;
           const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
           
@@ -25,98 +35,81 @@ function Navbar() {
           });
         }
       }, 100);
-      return;
+    } else {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
     }
-    
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
-    }
-  };
-
-  // Obsługa scrollowania po nawigacji na stronę główną
-  useEffect(() => {
-    if (location.pathname === '/' && location.state?.scrollTo) {
-      setTimeout(() => {
-        const sectionId = location.state.scrollTo;
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const headerOffset = 100;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
-        }
-      }, 100);
-    }
-  }, [location]);
-
-  const handleNavigation = (path) => {
-    setIsOpen(false);
-    navigate(path);
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black shadow-lg">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-20">
-          <Link 
-            to="/" 
-            className="text-2xl md:text-3xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            Osk.BudVip
-          </Link>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-20">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <button
+              onClick={() => handleNavigation('/')}
+              className="text-2xl md:text-3xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors"
+            >
+              Osk.BudVip
+            </button>
+          </div>
 
+          {/* Menu na desktop */}
           <div className="hidden md:flex items-center space-x-8">
             <button
               onClick={() => handleNavigation('/')}
-              className="text-gray-300 hover:text-white transition-colors"
+              className={`text-${location.pathname === '/' ? 'yellow-400' : 'gray-300'} hover:text-yellow-400 transition-colors px-3 py-2`}
             >
               Strona główna
             </button>
             <button
               onClick={() => scrollToSection('about')}
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-3 py-2"
             >
               O nas
             </button>
             <button
               onClick={() => scrollToSection('services')}
-              className="text-gray-300 hover:text-white transition-colors"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-3 py-2"
             >
               Usługi
             </button>
             <button
               onClick={() => handleNavigation('/realizacje')}
-              className="text-gray-300 hover:text-white transition-colors"
+              className={`text-${location.pathname.includes('/realizacje') ? 'yellow-400' : 'gray-300'} hover:text-yellow-400 transition-colors px-3 py-2`}
             >
               Realizacje
             </button>
             <button
               onClick={() => handleNavigation('/kontakt')}
-              className="text-gray-300 hover:text-white transition-colors"
+              className={`text-${location.pathname === '/kontakt' ? 'yellow-400' : 'gray-300'} hover:text-yellow-400 transition-colors px-3 py-2`}
             >
               Kontakt
             </button>
           </div>
 
+          {/* Przycisk menu mobilnego */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-gray-300 hover:text-white p-2"
+            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
             aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
           >
-            <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg 
+              className="h-6 w-6" 
+              fill="none" 
+              viewBox="0 0 24 24" 
+              stroke="currentColor"
+            >
               <path 
                 strokeLinecap="round" 
                 strokeLinejoin="round" 
@@ -129,35 +122,45 @@ function Navbar() {
       </div>
 
       {/* Menu mobilne */}
-      <div className={`${isOpen ? 'block' : 'hidden'} md:hidden bg-black border-t border-gray-800`}>
-        <div className="px-4 py-4 space-y-3">
+      <div 
+        className={`${
+          isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
+        } md:hidden fixed top-16 left-0 right-0 bottom-0 bg-black transition-all duration-300 ease-in-out z-50`}
+      >
+        <div className="px-4 py-4 space-y-2 bg-black border-t border-gray-800">
           <button
             onClick={() => handleNavigation('/')}
-            className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg"
+            className={`w-full text-left px-4 py-3 rounded-lg ${
+              location.pathname === '/' ? 'bg-yellow-400 text-black' : 'text-gray-300'
+            } hover:bg-yellow-400 hover:text-black transition-colors`}
           >
             Strona główna
           </button>
           <button
             onClick={() => scrollToSection('about')}
-            className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg"
+            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors"
           >
             O nas
           </button>
           <button
             onClick={() => scrollToSection('services')}
-            className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg"
+            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors"
           >
             Usługi
           </button>
           <button
             onClick={() => handleNavigation('/realizacje')}
-            className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg"
+            className={`w-full text-left px-4 py-3 rounded-lg ${
+              location.pathname.includes('/realizacje') ? 'bg-yellow-400 text-black' : 'text-gray-300'
+            } hover:bg-yellow-400 hover:text-black transition-colors`}
           >
             Realizacje
           </button>
           <button
             onClick={() => handleNavigation('/kontakt')}
-            className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-lg"
+            className={`w-full text-left px-4 py-3 rounded-lg ${
+              location.pathname === '/kontakt' ? 'bg-yellow-400 text-black' : 'text-gray-300'
+            } hover:bg-yellow-400 hover:text-black transition-colors`}
           >
             Kontakt
           </button>

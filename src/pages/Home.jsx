@@ -170,7 +170,7 @@ function Home() {
       <SEO
         title="Montaż Kuchni, Wykończenia Wnętrz, Remonty Kompleksowe Czeladź | Osk.BudVip"
         description="Profesjonalny montaż kuchni, mebli kuchennych, wykończenia wnętrz, remonty kompleksowe i prace stolarskie w Czeladzi. Szybko, solidnie, konkurencyjne ceny."
-        keywords="montaż kuchni Czeladź, wykończenia wnętrz Czeladź, remonty kompleksowe Czeladź, prace stolarskie Czeladź, montaż mebli kuchennych Czeladź, montaż kuchni Śląsk, wykończenia wnętrz Śląsk, remonty kompleksowe Śląsk, prace stolarskie Śląsk, montaż mebli kuchennych Śląsk"
+        keywords="montaż kuchni Czeladź, wykończenia wnętrz Czeladź, remonty kompleksowe Czeladź, prace stolarskie Czeladź, montaż mebli kuchennych Czeladź"
         canonical="https://oskbudvip.pl/"
       />
       <section
@@ -189,7 +189,7 @@ function Home() {
         <div
           className="absolute inset-0 z-[-1] bg-cover bg-center"
           style={{
-            backgroundImage: `url(${buildingImage})`,
+            backgroundImage: `url('https://images.unsplash.com/photo-1599619585752-c3edb42a414c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
             transform: `translateY(${scrollPosition * 0.3}px) scale(${
               1 + scrollPosition * 0.0005
             })`,
@@ -197,39 +197,39 @@ function Home() {
         ></div>
 
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl mx-auto animate-fade-in text-center">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 animate-bounce-in">
+          <div className="max-w-2xl mx-auto text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 animate-bounce-in">
               Profesjonalne Usługi Budowlane
             </h1>
-            <p className="text-base sm:text-lg md:text-xl text-white mb-8 sm:mb-10 animate-slide-up">
+            <p className="text-lg sm:text-xl md:text-2xl text-white mb-8 sm:mb-10 animate-slide-up">
               Realizujemy projekty od fundamentów po wykończenie. Zaufaj naszemu
               doświadczeniu i profesjonalizmowi.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a
                 href="#services"
-                className="bg-yellow-400 hover:bg-yellow-500 text-black px-8 py-4 rounded-lg font-bold text-lg transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-lg transition-all hover:-translate-y-1 hover:shadow-lg"
               >
                 Nasze Usługi
               </a>
               <Link
                 to="/kontakt"
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-8 py-4 rounded-lg font-bold text-lg transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-lg transition-all hover:-translate-y-1 hover:shadow-lg"
               >
                 Skontaktuj się
               </Link>
             </div>
           </div>
         </div>
-
-        {/* Przewijaj w dół button */}
+        
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
           <a
             href="#services"
             className="text-white opacity-80 hover:opacity-100 transition-opacity"
+            aria-label="Przewiń do sekcji usług"
           >
             <svg
-              className="w-10 h-10"
+              className="w-8 h-8 sm:w-10 sm:h-10"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
