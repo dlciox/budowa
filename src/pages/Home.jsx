@@ -198,12 +198,13 @@ function Home() {
         ></div>
 
         <div
-          className="absolute inset-0 z-[-1] bg-cover bg-center opacity-75"
+          className="absolute inset-0 z-[-1] bg-cover bg-center"
           style={{
             backgroundImage: `url(${buildingImage})`,
             transform: `translateY(${scrollPosition * 0.3}px) scale(${
               1 + scrollPosition * 0.0005
             })`,
+            opacity: '0.75'
           }}
         ></div>
 

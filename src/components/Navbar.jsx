@@ -49,33 +49,38 @@ function Navbar() {
           <div className="hidden md:flex items-center space-x-10">
             <button
               onClick={handleHomeNavigation}
-              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg font-bold relative group"
             >
-              Strona główna
+              <span>Strona główna</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 transition-transform origin-left group-hover:scale-x-100"></span>
             </button>
             <button
               onClick={() => handleSectionNavigation('about')}
-              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg font-bold relative group"
             >
-              O nas
+              <span>O nas</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 transition-transform origin-left group-hover:scale-x-100"></span>
             </button>
             <button
               onClick={() => handleSectionNavigation('services')}
-              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg font-bold relative group"
             >
-              Usługi
+              <span>Usługi</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 transition-transform origin-left group-hover:scale-x-100"></span>
             </button>
             <Link
               to="/realizacje"
-              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg font-bold relative group"
             >
-              Realizacje
+              <span>Realizacje</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 transition-transform origin-left group-hover:scale-x-100"></span>
             </Link>
             <Link
               to="/kontakt"
-              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg font-bold relative group"
             >
-              Kontakt
+              <span>Kontakt</span>
+              <span className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-400 transform scale-x-0 transition-transform origin-left group-hover:scale-x-100"></span>
             </Link>
           </div>
 

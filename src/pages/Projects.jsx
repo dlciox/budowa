@@ -162,7 +162,7 @@ function Projects() {
   };
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-28"> {/* Zwiększony padding top */}
       <SEO
         title={`Realizacje ${category ? `- ${CATEGORIES.find(c => c.id === category)?.name}` : ''} | Osk.BudVip`}
         description={`Zobacz nasze projekty i realizacje w kategorii ${category || 'wszystkie'}. Profesjonalny montaż mebli, remonty i wykończenia wnętrz w Czeladzi i na Śląsku.`}
