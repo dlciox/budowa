@@ -1,8 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import SEO from "../components/SEO";
-import { navigate } from "gatsby";
 
 function Contact() {
+  const navigate = useNavigate();
   const email = "osk.budvip@wp.pl";
   const phoneNumber = "690 112 664";
 
