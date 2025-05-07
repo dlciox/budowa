@@ -10,96 +10,83 @@ function Navbar() {
     setIsOpen(false);
   }, [location.pathname]);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
-
-  const handleNavigation = (path) => {
-    if (path === '/' || location.pathname === path) {
-      scrollToTop();
-    }
-    navigate(path);
-    setIsOpen(false);
-  };
-
-  const scrollToSection = (sectionId) => {
-    setIsOpen(false);
-    
-    if (location.pathname !== '/') {
+  const handleHomeNavigation = () => {
+    if (location.pathname === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
       navigate('/');
-      setTimeout(() => {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
+    }
+    setIsOpen(false);
+  };
+
+  const handleSectionNavigation = (sectionId) => {
+    setIsOpen(false);
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
     } else {
       const element = document.getElementById(sectionId);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: 'smooth' });
       }
     }
   };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+        <div className="flex justify-between items-center h-20 sm:h-24">
+          {/* Logo z większym marginesem */}
+          <div className="flex-shrink-0 mr-8">
             <button
-              onClick={() => handleNavigation('/')}
-              className="text-2xl md:text-3xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors"
+              onClick={handleHomeNavigation}
+              className="text-2xl md:text-3xl font-bold text-yellow-400 hover:text-yellow-300 transition-colors py-2"
             >
               Osk.BudVip
             </button>
           </div>
 
-          {/* Menu na desktop */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Menu na desktop z lepszymi marginesami */}
+          <div className="hidden md:flex items-center space-x-10">
             <button
-              onClick={() => handleNavigation('/')}
-              className={`text-${location.pathname === '/' ? 'yellow-400' : 'gray-300'} hover:text-yellow-400 transition-colors px-3 py-2`}
+              onClick={handleHomeNavigation}
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
             >
               Strona główna
             </button>
             <button
-              onClick={() => scrollToSection('about')}
-              className="text-gray-300 hover:text-yellow-400 transition-colors px-3 py-2"
+              onClick={() => handleSectionNavigation('about')}
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
             >
               O nas
             </button>
             <button
-              onClick={() => scrollToSection('services')}
-              className="text-gray-300 hover:text-yellow-400 transition-colors px-3 py-2"
+              onClick={() => handleSectionNavigation('services')}
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
             >
               Usługi
             </button>
-            <button
-              onClick={() => handleNavigation('/realizacje')}
-              className={`text-${location.pathname.includes('/realizacje') ? 'yellow-400' : 'gray-300'} hover:text-yellow-400 transition-colors px-3 py-2`}
+            <Link
+              to="/realizacje"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
             >
               Realizacje
-            </button>
-            <button
-              onClick={() => handleNavigation('/kontakt')}
-              className={`text-${location.pathname === '/kontakt' ? 'yellow-400' : 'gray-300'} hover:text-yellow-400 transition-colors px-3 py-2`}
+            </Link>
+            <Link
+              to="/kontakt"
+              className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-3 text-lg"
             >
               Kontakt
-            </button>
+            </Link>
           </div>
 
-          {/* Przycisk menu mobilnego */}
+          {/* Przycisk menu mobilnego z lepszymi marginesami */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
+            className="md:hidden inline-flex items-center justify-center p-3 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
             aria-label={isOpen ? "Zamknij menu" : "Otwórz menu"}
           >
             <svg 
-              className="h-6 w-6" 
+              className="h-7 w-7" 
               fill="none" 
               viewBox="0 0 24 24" 
               stroke="currentColor"
@@ -115,49 +102,43 @@ function Navbar() {
         </div>
       </div>
 
-      {/* Menu mobilne */}
+      {/* Menu mobilne z lepszymi marginesami */}
       <div 
         className={`${
           isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
-        } md:hidden fixed top-16 left-0 right-0 bottom-0 bg-black transition-all duration-300 ease-in-out z-50`}
+        } md:hidden fixed top-20 left-0 right-0 bottom-0 bg-black transition-all duration-300 ease-in-out z-50`}
       >
-        <div className="px-4 py-4 space-y-2 bg-black border-t border-gray-800">
+        <div className="px-6 py-6 space-y-4 bg-black border-t border-gray-800">
           <button
-            onClick={() => handleNavigation('/')}
-            className={`w-full text-left px-4 py-3 rounded-lg ${
-              location.pathname === '/' ? 'bg-yellow-400 text-black' : 'text-gray-300'
-            } hover:bg-yellow-400 hover:text-black transition-colors`}
+            onClick={handleHomeNavigation}
+            className="w-full text-left px-5 py-4 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors text-lg"
           >
             Strona główna
           </button>
           <button
-            onClick={() => scrollToSection('about')}
-            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors"
+            onClick={() => handleSectionNavigation('about')}
+            className="w-full text-left px-5 py-4 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors text-lg"
           >
             O nas
           </button>
           <button
-            onClick={() => scrollToSection('services')}
-            className="w-full text-left px-4 py-3 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors"
+            onClick={() => handleSectionNavigation('services')}
+            className="w-full text-left px-5 py-4 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors text-lg"
           >
             Usługi
           </button>
-          <button
-            onClick={() => handleNavigation('/realizacje')}
-            className={`w-full text-left px-4 py-3 rounded-lg ${
-              location.pathname.includes('/realizacje') ? 'bg-yellow-400 text-black' : 'text-gray-300'
-            } hover:bg-yellow-400 hover:text-black transition-colors`}
+          <Link
+            to="/realizacje"
+            className="block w-full text-left px-5 py-4 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors text-lg"
           >
             Realizacje
-          </button>
-          <button
-            onClick={() => handleNavigation('/kontakt')}
-            className={`w-full text-left px-4 py-3 rounded-lg ${
-              location.pathname === '/kontakt' ? 'bg-yellow-400 text-black' : 'text-gray-300'
-            } hover:bg-yellow-400 hover:text-black transition-colors`}
+          </Link>
+          <Link
+            to="/kontakt"
+            className="block w-full text-left px-5 py-4 text-gray-300 hover:bg-yellow-400 hover:text-black rounded-lg transition-colors text-lg"
           >
             Kontakt
-          </button>
+          </Link>
         </div>
       </div>
     </nav>

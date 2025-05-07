@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import buildingImage from "../assets/montaz6/building-1080594_1280.jpg";
 import { images } from "../components/Import";
 import SEO from "../components/SEO";
 
 function Home() {
+  const location = useLocation();
   // Stan do śledzenia pozycji przewijania dla efektu paralaksy
   const [scrollPosition, setScrollPosition] = useState(0);
 
@@ -37,6 +38,18 @@ function Home() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    // Sprawdź czy mamy przekierowanie do sekcji
+    if (location.state?.scrollTo) {
+      const element = document.getElementById(location.state.scrollTo);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Wyczyść stan po scrollowaniu
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
   const [iconPositions, setIconPositions] = useState([]);
 

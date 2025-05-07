@@ -157,8 +157,12 @@ function Projects() {
     setFilteredProjects(results);
   };
 
+  const handleSectionNavigation = (sectionId) => {
+    navigate('/', { state: { scrollTo: sectionId } });
+  };
+
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen pt-24">
       <SEO
         title={`Realizacje ${category ? `- ${CATEGORIES.find(c => c.id === category)?.name}` : ''} | Osk.BudVip`}
         description={`Zobacz nasze projekty i realizacje w kategorii ${category || 'wszystkie'}. Profesjonalny montaż mebli, remonty i wykończenia wnętrz w Czeladzi i na Śląsku.`}
@@ -171,7 +175,23 @@ function Projects() {
         <StructuredData key={project.id} data={generateProjectSchema(project)} />
       ))}
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4">
+        {/* Menu nawigacyjne */}
+        <div className="flex flex-wrap gap-4 mb-8 justify-center">
+          <button
+            onClick={() => handleSectionNavigation('about')}
+            className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-2 text-lg"
+          >
+            O nas
+          </button>
+          <button
+            onClick={() => handleSectionNavigation('services')}
+            className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-2 text-lg"
+          >
+            Usługi
+          </button>
+        </div>
+
         <Breadcrumbs
           items={[
             { name: 'Strona główna', url: '/' },
