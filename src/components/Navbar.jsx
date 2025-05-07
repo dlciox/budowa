@@ -6,15 +6,23 @@ function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Zamykamy menu po zmianie ścieżki
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+
   const handleNavigation = (path) => {
+    if (path === '/' || location.pathname === path) {
+      scrollToTop();
+    }
     navigate(path);
     setIsOpen(false);
-    window.scrollTo(0, 0); // Przewiń na górę po nawigacji
   };
 
   const scrollToSection = (sectionId) => {
@@ -25,27 +33,13 @@ function Navbar() {
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
-          const headerOffset = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth"
-          });
+          element.scrollIntoView({ behavior: "smooth" });
         }
       }, 100);
     } else {
       const element = document.getElementById(sectionId);
       if (element) {
-        const headerOffset = 80;
-        const elementPosition = element.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth"
-        });
+        element.scrollIntoView({ behavior: "smooth" });
       }
     }
   };

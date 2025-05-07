@@ -175,21 +175,19 @@ function Home() {
       />
       <section
         id="home"
-        className="relative h-screen flex items-center overflow-hidden"
+        className="relative h-screen flex items-center overflow-hidden bg-black"
       >
         <div
-          className="absolute inset-0 z-0"
+          className="absolute inset-0 z-0 bg-gradient-to-b from-black/70 to-black/50"
           style={{
-            backgroundImage:
-              "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.5))",
             transform: `translateY(${scrollPosition * 0.15}px)`,
           }}
         ></div>
 
         <div
-          className="absolute inset-0 z-[-1] bg-cover bg-center"
+          className="absolute inset-0 z-[-1] bg-cover bg-center opacity-75"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1599619585752-c3edb42a414c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`,
+            backgroundImage: `url(${buildingImage})`,
             transform: `translateY(${scrollPosition * 0.3}px) scale(${
               1 + scrollPosition * 0.0005
             })`,
