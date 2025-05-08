@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import mainPhoto from "../assets/main_photo.jpg";
 import buildingImage from "../assets/montaz6/building-1080594_1280.jpg";
 import { images } from "../components/Import";
 import SEO from "../components/SEO";
@@ -44,7 +45,7 @@ function Home() {
     if (location.state?.scrollTo) {
       const element = document.getElementById(location.state.scrollTo);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: "smooth" });
       }
       // Wyczyść stan po scrollowaniu
       window.history.replaceState({}, document.title);
@@ -188,25 +189,31 @@ function Home() {
       />
       <section
         id="home"
-        className="relative h-screen flex items-center overflow-hidden bg-black"
+        className="relative h-screen flex items-center overflow-hidden"
       >
-        <div
-          className="absolute inset-0 z-0 bg-gradient-to-b from-black/70 to-black/50"
-          style={{
-            transform: `translateY(${scrollPosition * 0.15}px)`,
-          }}
-        ></div>
-
+        {/* Overlay z delikatnym cieniem */}
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-black/20 to-black/20"></div>
+        {/* Zdjęcie tła - zastosowanie wielu metod w celu zapewnienia wyświetlania */}
         <div
           className="absolute inset-0 z-[-1] bg-cover bg-center"
           style={{
-            backgroundImage: `url(${buildingImage})`,
+            backgroundImage: `url(${mainPhoto})`,
             transform: `translateY(${scrollPosition * 0.3}px) scale(${
               1 + scrollPosition * 0.0005
             })`,
-            opacity: '0.75'
+            opacity: "1",
           }}
-        ></div>
+        >
+          {/* Dodatkowa warstwa z obrazem jako element img dla pewności */}
+          <img
+            src={mainPhoto}
+            alt="Tło główne"
+            className="absolute inset-0 w-full h-full object-cover opacity-0"
+            onLoad={(e) =>
+              e.target.classList.replace("opacity-0", "opacity-100")
+            }
+          />
+        </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl mx-auto text-center">
@@ -233,15 +240,14 @@ function Home() {
             </div>
           </div>
         </div>
-        
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 w-full flex justify-center animate-bounce">
           <a
             href="#services"
-            className="text-white opacity-80 hover:opacity-100 transition-opacity"
+            className="text-white opacity-80 hover:opacity-100 transition-opacity block"
             aria-label="Przewiń do sekcji usług"
           >
             <svg
-              className="w-8 h-8 sm:w-10 sm:h-10"
+              className="w-8 h-8 md:w-10 md:h-10"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -256,7 +262,6 @@ function Home() {
           </a>
         </div>
       </section>
-
       {/* Services Section z animacją */}
       <section id="services" className="py-20 bg-gray-50 scroll-margin-top-24">
         <div className="container mx-auto px-4">
@@ -294,7 +299,6 @@ function Home() {
         id="about"
         className="section bg-black text-white relative overflow-hidden scroll-margin-top-24"
       >
-        <div className="absolute inset-0 bg-[url('https://placehold.co/1200x800/2a2a2a/333333?text=Tło+o+nas')] bg-no-repeat bg-cover bg-center opacity-10"></div>
         <div className="container relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
             <div className="space-y-4 sm:space-y-6">
@@ -440,13 +444,16 @@ function Home() {
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Przeprowadzki Czeladź i okolice</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+              Przeprowadzki Czeladź i okolice
+            </h2>
             <p className="text-xl text-gray-600 mb-8">
-              Świadczymy profesjonalne usługi przeprowadzkowe na terenie Czeladzi i całego Śląska. 
-              Nasza oferta obejmuje kompleksową obsługę przeprowadzek mieszkań, domów i firm.
+              Świadczymy profesjonalne usługi przeprowadzkowe na terenie
+              Czeladzi i całego Śląska. Nasza oferta obejmuje kompleksową
+              obsługę przeprowadzek mieszkań, domów i firm.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h3 className="text-xl font-bold mb-4">Transport mebli</h3>
@@ -457,7 +464,7 @@ function Home() {
                 <li>✓ Konkurencyjne ceny</li>
               </ul>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h3 className="text-xl font-bold mb-4">Montaż i demontaż</h3>
               <ul className="space-y-2 text-gray-600">
@@ -467,7 +474,7 @@ function Home() {
                 <li>✓ Gwarancja jakości</li>
               </ul>
             </div>
-            
+
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h3 className="text-xl font-bold mb-4">Kompleksowa obsługa</h3>
               <ul className="space-y-2 text-gray-600">

@@ -23,27 +23,11 @@ function Contact() {
     mailtoLink.click();
   };
 
-  const handleSectionNavigation = (sectionId) => {
-    navigate('/', { state: { scrollTo: sectionId } });
-  };
+
 
   return (
     <div className="min-h-screen bg-gray-50 py-20 mt-24">
-      {/* Przyciski nawigacyjne */}
-      <div className="flex flex-wrap gap-4 mb-8 justify-center">
-        <button
-          onClick={() => handleSectionNavigation('about')}
-          className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-2 text-lg"
-        >
-          O nas
-        </button>
-        <button
-          onClick={() => handleSectionNavigation('services')}
-          className="text-gray-300 hover:text-yellow-400 transition-colors px-4 py-2 text-lg"
-        >
-          Usługi
-        </button>
-      </div>
+      
 
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
