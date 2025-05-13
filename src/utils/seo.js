@@ -29,24 +29,35 @@ export function calculateRelevanceScore(item, searchTerm) {
   const locationNorm = normalize(item.location);
   const tagsNorm = item.tags ? item.tags.map(normalize) : [];
   const categoryNorm = normalize(item.category);
-
   // Wagi dla różnych pól
   const weights = {
-    exactMatch: 100,    // Zwiększona waga za dokładne dopasowanie
-    title: 50,          // Zwiększona waga za dopasowanie w tytule
-    description: 10,
-    location: 8,
-    category: 15,
-    tags: 20           // Zwiększona waga za tagi
+    exactMatch: 100,    // Dokładne dopasowanie
+    title: 50,          // Dopasowanie w tytule
+    description: 30,    // Zwiększona waga za opis
+    location: 40,       // Znacznie zwiększona waga za lokalizację
+    category: 25,       // Zwiększona waga za kategorię
+    tags: 35,          // Zwiększona waga za tagi
+    keywords: 45       // Nowa wysoka waga za słowa kluczowe
   };
 
   // Sprawdź dokładne dopasowania całej frazy
   if (titleNorm === searchLower) score += weights.exactMatch * 2;
   if (descNorm.includes(searchLower)) score += weights.exactMatch;
-  
+    // Sprawdź słowa kluczowe
+  if (item.keywords) {
+    const keywordsNorm = normalize(item.keywords);
+    if (keywordsNorm.includes(searchLower)) score += weights.keywords * 2;
+    searchWords.forEach(word => {
+      if (keywordsNorm.includes(normalize(word))) score += weights.keywords;
+    });
+  }
+
   // Sprawdź dokładne dopasowania poszczególnych słów
   searchWords.forEach(word => {
     const wordNorm = normalize(word);
+    
+    // Sprawdź lokalizację
+    if (locationNorm.includes(wordNorm)) score += weights.location;
     
     // Sprawdź dokładne dopasowanie w tytule
     if (titleNorm.split(' ').includes(wordNorm)) {

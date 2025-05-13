@@ -21,31 +21,32 @@ const CATEGORIES = [
 const projectsData = [
   {
     id: 1,
-    title: "Nowoczesna kuchnia z wyspą",
-    description: "Montaż kompletnej zabudowy kuchennej z wyspą centralną",
+    title: "Nowoczesna kuchnia z wyspą w Czeladzi",
+    description: "Profesjonalny montaż kompletnej zabudowy kuchennej z wyspą centralną. Realizacja w Czeladzi, dzielnica Piaski.",
     category: "kuchnie",
-    location: "Czeladź",
+    location: "Czeladź - Piaski",
     imageUrl: images["montaz1_1"],
     images: [images["montaz1_1"], images["montaz1_2"], images["montaz1_3"]],
     tags: [
-      "wyspa",
-      "nowoczesna",
+      "wyspa kuchenna",
+      "nowoczesna kuchnia",
       "biała kuchnia",
-      "meble kuchenne",
+      "meble kuchenne Czeladź",
       "AGD",
-      "zabudowa kuchenna",
+      "zabudowa kuchenna Czeladź",
+      "montaż mebli kuchennych",
     ],
     stats: {
       duration: "2 tygodnie",
       area: "15m²",
       year: "2024",
     },
-    keywords: "montaż kuchni czeladź, meble kuchenne śląsk, zabudowa kuchenna",
+    keywords: "montaż kuchni Czeladź, meble kuchenne Czeladź, zabudowa kuchenna Czeladź, kuchnie na wymiar Śląsk, montaż AGD Czeladź, projekt kuchni Czeladź",
   },
   {
     id: 2,
-    title: "Montaż 2",
-    description: "Kompleksowy montaż wraz z wykończeniem.",
+    title: "Kompleksowy montaż kuchni w Czeladzi",
+    description: "Profesjonalny montaż mebli kuchennych wraz z podłączeniem AGD. Realizacja na osiedlu Saturn w Czeladzi.",
     category: "kuchnie",
     location: "Czeladź",
     imageUrl: images["montaz2_1"],
@@ -55,12 +56,13 @@ const projectsData = [
       images["montaz2_3"],
       images["montaz2_4"],
     ],
-    tags: ["kuchnia", "montaż"],
+    tags: ["kuchnia na wymiar", "montaż kuchni", "meble kuchenne", "AGD", "zabudowa kuchenna Czeladź"],
     stats: {
       duration: "2 tygodnie",
       area: "10m²",
       year: "2024",
     },
+    keywords: "montaż kuchni Czeladź Saturn, zabudowa kuchenna Czeladź, kuchnie na wymiar Czeladź, meble kuchenne Zagłębie",
   },
   {
     id: 3,
@@ -148,13 +150,12 @@ const projectsData = [
       area: "10m²",
       year: "2024",
     },
-  },
-  {
+  },  {
     id: 8,
-    title: "Nowoczesny przedpokój z szafą typu Walk-in",
-    description: "Kompleksowy montaż szafy garderobianej typu Walk-in wraz z lustrem i oświetleniem LED",
+    title: "Nowoczesna garderoba typu Walk-in w Czeladzi",
+    description: "Kompleksowy montaż szafy garderobianej typu Walk-in z lustrem i oświetleniem LED. Profesjonalna zabudowa przedpokoju wykonana na wymiar w Czeladzi.",
     category: "przedpokoje",
-    location: "Czeladź",
+    location: "Czeladź - Centrum",
     imageUrl: images["montaz8_1"],
     images: [
       images["montaz8_1"],
@@ -163,13 +164,13 @@ const projectsData = [
       images["montaz8_4"],
       images["montaz8_5"],
     ],
-    tags: ["przedpokój", "szafa", "garderoba", "walk-in", "LED", "lustro"],
+    tags: ["przedpokój Czeladź", "szafa na wymiar", "garderoba walk-in", "zabudowa przedpokoju", "LED", "lustro"],
     stats: {
       duration: "1 tydzień",
       area: "8m²",
       year: "2025",
     },
-    keywords: "montaż szaf czeladź, zabudowa przedpokoju, garderoba na wymiar",
+    keywords: "montaż szaf Czeladź, zabudowa przedpokoju Czeladź, garderoba na wymiar Czeladź, szafy przesuwne Czeladź, meble na wymiar Czeladź, szafy wnękowe Zagłębie",
   },
 ];
 
@@ -285,16 +286,21 @@ function Projects() {
 
   return (
     <div className="min-h-screen pt-28">
-      <SEO
-        title={`Realizacje ${
-          category ? `- ${CATEGORIES.find((c) => c.id === category)?.name}` : ""
-        } | Osk.BudVip`}
-        description={`Zobacz nasze projekty i realizacje w kategorii ${
-          category || "wszystkie"
-        }. Profesjonalny montaż mebli, remonty i wykończenia wnętrz w Czeladzi i na Śląsku.`}
-        keywords={`realizacje, projekty, ${
-          category || "meble na wymiar"
-        }, montaż mebli, czeladź, śląsk, remonty`}
+      <SEO        title={`${CATEGORIES.find((c) => c.id === category)?.name || 'Realizacje'} Czeladź - Montaż i Remonty | Osk.BudVip`}
+        description={`${
+          category === 'kuchnie' ? 'Montaż kuchni i mebli kuchennych' :
+          category === 'lazienki' ? 'Remonty i wykończenia łazienek' :
+          category === 'przedpokoje' ? 'Zabudowy przedpokoi i szafy na wymiar' :
+          category === 'remonty' ? 'Kompleksowe remonty mieszkań i domów' :
+          'Profesjonalne usługi remontowe i montażowe'
+        } w Czeladzi i okolicach. Sprawdź nasze realizacje i umów się na bezpłatną wycenę.`}
+        keywords={`${
+          category === 'kuchnie' ? 'montaż kuchni Czeladź, meble kuchenne Czeladź, kuchnie na wymiar Czeladź' :
+          category === 'lazienki' ? 'remont łazienki Czeladź, wykończenia łazienek Czeladź, modernizacja łazienki Czeladź' :
+          category === 'przedpokoje' ? 'szafy na wymiar Czeladź, zabudowa przedpokoju Czeladź, garderoby Czeladź' :
+          category === 'remonty' ? 'remonty mieszkań Czeladź, remonty domów Czeladź, wykończenia wnętrz Czeladź' :
+          'remonty Czeladź, montaż mebli Czeladź, wykończenia wnętrz Czeladź'
+        }, przeprowadzki Czeladź, usługi remontowe Czeladź, firma remontowa Czeladź`}
         canonical={`https://oskbudvip.pl/realizacje${
           category ? `/${category}` : ""
         }`}
