@@ -149,6 +149,28 @@ const projectsData = [
       year: "2024",
     },
   },
+  {
+    id: 8,
+    title: "Nowoczesny przedpokój z szafą typu Walk-in",
+    description: "Kompleksowy montaż szafy garderobianej typu Walk-in wraz z lustrem i oświetleniem LED",
+    category: "przedpokoje",
+    location: "Czeladź",
+    imageUrl: images["montaz8_1"],
+    images: [
+      images["montaz8_1"],
+      images["montaz8_2"],
+      images["montaz8_3"],
+      images["montaz8_4"],
+      images["montaz8_5"],
+    ],
+    tags: ["przedpokój", "szafa", "garderoba", "walk-in", "LED", "lustro"],
+    stats: {
+      duration: "1 tydzień",
+      area: "8m²",
+      year: "2025",
+    },
+    keywords: "montaż szaf czeladź, zabudowa przedpokoju, garderoba na wymiar",
+  },
 ];
 
 function Projects() {
